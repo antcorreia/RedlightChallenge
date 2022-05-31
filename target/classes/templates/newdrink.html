@@ -1,0 +1,14 @@
+<form th:action="@{/savedrink}" th:object="${drink}" method="post">
+        <label>Name</label>
+        <input type="text" th:field="${drink.name}">
+        <br>
+        <label>Quantity</label>
+        <input type="text" th:field="${drink.quantity}">
+        <br>
+        <label>Image URL</label>
+        <input type="text" th:field="${drink.image_url}">
+        <br>
+        <label th:text="${result}"></label>
+        <br>
+        <button type="submit">Create drink</button>
+</form>
