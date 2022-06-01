@@ -5,8 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <a href="http://localhost:8080/error">
-        <button> Error </button>
+    <a th:href="@{/newdrink}">
+        <button> Create drink </button>
+    </a>
+    <br>
+    <a th:href="@{/drinks}">
+        <button> List drinks </button>
     </a>
 </body>
 </html>

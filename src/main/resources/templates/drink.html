@@ -1,0 +1,11 @@
+<h1 th:text="${drink.name}">name</h1>
+<img th:src="${drink.image_url}">
+<br>
+<label>Available: </label> <label th:text="${drink.quantity}">quantity</label>
+<br>
+<a th:href="@{/drinks/__${drink.drink_id}__/edit}">
+    <button> Edit drink </button>
+</a>
+<a th:href="@{/drinks/__${drink.drink_id}__/delete}">
+    <button> Delete drink </button>
+</a>
