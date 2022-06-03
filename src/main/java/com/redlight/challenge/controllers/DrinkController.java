@@ -24,8 +24,8 @@ public class DrinkController {
 
     @GetMapping("/newdrink")
     public String newdrink(Model m){
-        m.addAttribute("result", result);
         m.addAttribute("drink", new FormDrink());
+        m.addAttribute("result", result);
         result = "\n";
 
         return "newdrink";
@@ -33,8 +33,7 @@ public class DrinkController {
 
     @PostMapping("/createdrink")
     public String createdrink(@ModelAttribute("drink") FormDrink fd){
-        Optional<String> name = drinkService.checkName(fd.getName());
-        if (name.isEmpty()){
+        if (drinkService.checkName(fd.getName()).isEmpty()){
             drinkService.createDrink(fd.getName(), fd.getQuantity(), fd.getImage_url());
 
             result = "Drink created successfully";

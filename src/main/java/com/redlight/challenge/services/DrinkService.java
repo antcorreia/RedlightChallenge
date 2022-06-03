@@ -64,4 +64,16 @@ public class DrinkService {
     public void deleteDrinkById(int drink_id){
         drinkRepository.deleteById(drink_id);
     }
+
+    public int getDrinkCount(){
+        return drinkRepository.getDrinkCount();
+    }
+
+    public String[] getAllDrinkNames(){
+        return drinkRepository.getAllDrinkNames();
+    }
+
+    public int getDrinkIdByName(String name){
+        return drinkRepository.getDrinkIdByName(name);
+    }
 }

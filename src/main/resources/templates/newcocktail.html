@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/createcocktail}" th:object="${cocktail}" method="post">
+        <label>Name</label>
+        <input type="text" th:field="*{name}">
+        <br>
+        <label>Number of drinks</label>
+        <select th:field="*{number_of_drinks}" onchange="addFields()" id="number_of_drinks">
+            <option value="0" hidden>Select number of drinks</option>
+            <tr th:each="number : ${n_drinks}">
+                <option th:value="${number}" th:text="${number}"></option>
+            </tr>
+        </select>
+        <div id="drinks">
+        </div>
+        <br>
+        <label th:text="${result}"></label>
+        <br>
+        <button onclick="returnFields()" id="button" type="submit">Create cocktail</button>
+        <select th:field="*{drinks}" id="hidden" style="visibility: hidden">
+        </select>
+    </form>
+</body>
+</html>
+
+<script th:inline="javascript">
+    function addFields() {
+        var input = '';
+        var number = document.getElementById('number_of_drinks').value;
+        var drink_list = /*[[${drink_list}]]*/ 'default';
+        for(var i = 1; i <= number; i++) {
+            input += "<label>Drink " + i + "</label>" +
+                     "<select id='drink" + i +"'>" +
+                     "<option value=\"\" hidden>Select number of drinks</option>\n";
+
+            for (var j = 0; j < drink_list.length; j++)
+                input += "    <option value='"+ drink_list[j] + "'>" + drink_list[j] + "</option>\n";
+
+            input += "</select>" +
+                     "<br>"
+        }
+        document.getElementById('drinks').innerHTML = input;
+
+    }
+
+    function returnFields() {
+        var number = document.getElementById('number_of_drinks').value;
+        var drinks = "";
+        for(var i = 1; i <= number; i++) {
+            drinks += document.getElementById("drink" + i).value + " / / ";
+        }
+        document.getElementById("hidden").innerHTML = "<option value='" + drinks + "'></option>";
+    }
+</script>
