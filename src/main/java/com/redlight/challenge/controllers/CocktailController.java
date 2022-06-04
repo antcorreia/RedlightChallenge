@@ -193,4 +193,122 @@ public class CocktailController {
             return "redirect:/cocktails/{cocktail_id}/sell";
         }
     }
+
+    @GetMapping("/cocktails/{cocktail_id}/delete")
+    public String delete(@PathVariable("cocktail_id") int cocktail_id, Model m){
+        m.addAttribute("cocktail_name", cocktailService.getCocktailNameById(cocktail_id));
+
+        return "deletecocktail";
+    }
+
+    @PostMapping("/cocktails/{cocktail_id}/deletecocktail")
+    public String deletecocktail(@PathVariable("cocktail_id") int cocktail_id){
+        String cocktailName = cocktailService.getCocktailNameById(cocktail_id);
+        drinkCocktailService.deleteAllByCocktailId(cocktail_id);
+        cocktailService.deleteCocktailById(cocktail_id);
+        result = "Successfully deleted " + cocktailName;
+
+        return "redirect:/cocktails";
+    }
+
+    @GetMapping("/cocktails/{cocktail_id}/edit")
+    public String editcocktail(@PathVariable("cocktail_id") int cocktail_id, Model m){
+        int drinkCount = drinkService.getDrinkCount();
+        List<Integer> nList = new ArrayList<>();
+        for (int i = 2; i <= drinkCount; i++) nList.add(i);
+        m.addAttribute("n_drinks", nList);
+
+        String[] drinks = drinkService.getAllDrinkNames();
+        m.addAttribute("drink_list", drinks);
+
+        m.addAttribute("cocktail_id", cocktail_id);
+        m.addAttribute("cocktail", new FormCocktail());
+        m.addAttribute("result", result);
+        result = "\n";
+
+        return "editcocktail";
+    }
+
+    @PostMapping("/cocktails/{cocktail_id}/savecocktail")
+    public String savecocktail(@PathVariable("cocktail_id") int cocktail_id, @ModelAttribute("cocktail") FormCocktail fc){
+        if (fc.getName().equals("")) {
+            result = "The cocktail must have a name";
+            return "redirect:/cocktails/{cocktail_id}/edit";
+        }
+        else if (fc.getNumber_of_drinks() == 0) {
+            result = "Please select how many drinks are used";
+            return "redirect:/cocktails/{cocktail_id}/edit";
+        }
+        else if (fc.getDrinks().equals("")) {
+            result = "Please select drinks to be used";
+            return "redirect:/cocktails/{cocktail_id}/edit";
+        }
+        else{
+            String[] drinks = fc.getDrinks().split(" / / ");
+            String[] quantities = fc.getQuantities().split(" ");
+            if (drinks.length != fc.getNumber_of_drinks()) {
+                result = "Every dropdown must have a drink";
+                return "redirect:/cocktails/{cocktail_id}/edit";
+            }
+            else
+                for (String drink : drinks)
+                    if (fc.getDrinks().split(drink).length != 2) {
+                        result = "There can't be duplicates in the drinks";
+                        return "redirect:/cocktails/{cocktail_id}/edit";
+                    }
+
+            if (quantities.length != fc.getNumber_of_drinks()) {
+                result = "Every drink must have a quantity";
+                return "redirect:/cocktails/{cocktail_id}/edit";
+            }
+            else
+                for (String quantity : quantities) {
+                    try {
+                        int q = Integer.parseInt(quantity);
+                        if (q < 1){
+                            result = "Quantity must be bigger at least 1";
+                            return "redirect:/cocktails/{cocktail_id}/edit";
+                        }
+                    }
+                    catch (Exception e){
+                        result = "Quantity must be a valid number";
+                        return "redirect:/cocktails/{cocktail_id}/edit";
+                    }
+                }
+        }
+
+        if (cocktailService.checkName(fc.getName()).isEmpty()){
+            cocktailService.createCocktail(fc.getName());
+
+            int cocktailId = cocktailService.getCocktailIdByName(fc.getName());
+            String[] drinks = fc.getDrinks().split(" / / ");
+            String[] quantities = fc.getQuantities().split(" ");
+            for (int i = 0; i < fc.getNumber_of_drinks(); i++) {
+                int drinkId = drinkService.getDrinkIdByName(drinks[i]);
+                drinkCocktailService.createDrinkCocktail(drinkId, cocktailId, Integer.parseInt(quantities[i]));
+            }
+
+            result = "Cocktail edited successfully";
+        }
+        else{
+            if (cocktailService.getCocktailIdByName(fc.getName()) != cocktail_id) {
+                result = "A cocktail with that name already exists";
+            }
+            else{
+                cocktailService.editCocktail(cocktail_id, fc.getName());
+                drinkCocktailService.deleteAllByCocktailId(cocktail_id);
+
+                String[] drinks = fc.getDrinks().split(" / / ");
+                String[] quantities = fc.getQuantities().split(" ");
+                for (int i = 0; i < fc.getNumber_of_drinks(); i++) {
+                    int drinkId = drinkService.getDrinkIdByName(drinks[i]);
+                    drinkCocktailService.createDrinkCocktail(drinkId, cocktail_id, Integer.parseInt(quantities[i]));
+                }
+
+                result = "Cocktail edited successfully";
+            }
+        }
+
+        return "redirect:/cocktails/{cocktail_id}/edit";
+    }
 }

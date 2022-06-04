@@ -28,4 +28,8 @@ public class DrinkCocktailService {
     public List<int[]> getPairsById(int cocktail_id){
         return drinkCocktailRepository.getPairsById(cocktail_id);
     }
+
+    public void deleteAllByCocktailId(int cocktail_id){
+        drinkCocktailRepository.deleteAllByCocktailId(cocktail_id);
+    }
 }

@@ -17,4 +17,7 @@ public interface CocktailRepository extends CrudRepository<Cocktail, Integer> {
 
     @Query("SELECT c FROM Cocktail c WHERE c.cocktail_id=?1")
     Cocktail getCocktailById(int cocktail_id);
+
+    @Query("SELECT c.name FROM Cocktail c WHERE c.cocktail_id=?1")
+    String getCocktailNameById(int cocktail_id);
 }

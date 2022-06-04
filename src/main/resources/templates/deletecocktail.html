@@ -1,0 +1,7 @@
+<h1>Are you sure you want to delete <span th:text="${cocktail_name}" th:remove="tag">cocktail name</span>?</h1>
+<form th:action="@{/cocktails/__${cocktail_id}__/deletecocktail}" method="post">
+    <button type="submit"> Delete </button>
+</form>
+<a th:href="@{/cocktails}">
+    <button> Cancel </button>
+</a>
