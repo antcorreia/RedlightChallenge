@@ -2,6 +2,8 @@ package com.redlight.challenge.controllers;
 
 import com.redlight.challenge.data.Drink;
 import com.redlight.challenge.forms.FormDrink;
+import com.redlight.challenge.services.CocktailService;
+import com.redlight.challenge.services.DrinkCocktailService;
 import com.redlight.challenge.services.DrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,12 @@ public class DrinkController {
 
     @Autowired
     DrinkService drinkService;
+
+    @Autowired
+    DrinkCocktailService drinkCocktailService;
+
+    @Autowired
+    CocktailService cocktailService;
 
     String result = "\n";
 
@@ -93,7 +102,14 @@ public class DrinkController {
     @PostMapping("drinks/{drink_id}/deletedrink")
     public String deletedrink(@PathVariable("drink_id") int drink_id){
         String drinkName = drinkService.getDrinkNameById(drink_id);
+        int[] ids = drinkCocktailService.getCocktailIdsByDrinkId(drink_id);
+        drinkCocktailService.deleteAllByDrinkId(drink_id);
+        for (int id : ids) {
+            drinkCocktailService.deleteAllByCocktailId(id);
+            cocktailService.deleteCocktailById(id);
+        }
         drinkService.deleteDrinkById(drink_id);
+
         result = "Successfully deleted " + drinkName;
 
         return "redirect:/drinks";

@@ -5,6 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+    <a th:href="@{/menu}">MENU</a></a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/drinks}">LIST DRINKS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/cocktails}">LIST COCKTAILS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/newdrink}">CREATE DRINK</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/newcocktail}">CREATE COCKTAIL</a> <a>&nbsp;|</a>
+    <br>
+    <label>_________________________________________________________________________________|</label>
+    <br>
     <form th:action="@{/createcocktail}" th:object="${cocktail}" method="post">
         <label>Name</label>
         <input type="text" th:field="*{name}">

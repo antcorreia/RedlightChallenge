@@ -1,3 +1,11 @@
+<a th:href="@{/menu}">MENU</a></a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a th:href="@{/drinks}">LIST DRINKS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a th:href="@{/cocktails}">LIST COCKTAILS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a th:href="@{/newdrink}">CREATE DRINK</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a th:href="@{/newcocktail}">CREATE COCKTAIL</a> <a>&nbsp;|</a>
+<br>
+<label>_________________________________________________________________________________|</label>
+<br>
 <h1>How many do you want to sell?</h1>
 <form th:action="@{/cocktails/__${cocktail_id}__/sellcocktail}" th:object="${sellcocktail}" method="post">
     <label>Amount</label>

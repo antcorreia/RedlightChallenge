@@ -33,6 +33,14 @@
 </style>
 
 <body>
+    <a th:href="@{/menu}">MENU</a></a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/drinks}">LIST DRINKS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/cocktails}">LIST COCKTAILS</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/newdrink}">CREATE DRINK</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a th:href="@{/newcocktail}">CREATE COCKTAIL</a> <a>&nbsp;|</a>
+    <br>
+    <label>_________________________________________________________________________________|</label>
+    <br>
     <h1>All drinks</h1>
     <input type="text" id="input" onkeyup="search()" placeholder="Search for drinks...">
     <table id="drink_list" class="table" border="1">

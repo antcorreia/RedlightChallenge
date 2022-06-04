@@ -29,7 +29,15 @@ public class DrinkCocktailService {
         return drinkCocktailRepository.getPairsById(cocktail_id);
     }
 
+    public int[] getCocktailIdsByDrinkId(int drink_id){
+        return drinkCocktailRepository.getCocktailIdsByDrinkId(drink_id);
+    }
+
     public void deleteAllByCocktailId(int cocktail_id){
         drinkCocktailRepository.deleteAllByCocktailId(cocktail_id);
+    }
+
+    public void deleteAllByDrinkId(int drink_id){
+        drinkCocktailRepository.deleteAllByDrinkId(drink_id);
     }
 }

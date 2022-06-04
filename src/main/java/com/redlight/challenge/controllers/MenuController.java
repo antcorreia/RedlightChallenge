@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MenuController {
 
     @GetMapping("/")
-    public String menu(){
+    public String empty(){
         return "menu";
     }
 
+    @GetMapping("/menu")
+    public String menu() { return "menu"; }
 }
