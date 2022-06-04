@@ -5,6 +5,8 @@ import com.redlight.challenge.repository.CocktailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +28,16 @@ public class CocktailService {
 
     public int getCocktailIdByName(String name){
         return cocktailRepository.getCocktailIdByName(name);
+    }
+
+    public List<Cocktail> getAllCocktails(){
+        List<Cocktail> cocktails = new ArrayList<>();
+        cocktailRepository.findAll().forEach(cocktails::add);
+
+        return cocktails;
+    }
+
+    public Cocktail getCocktailById(int cocktail_id){
+        return cocktailRepository.getCocktailById(cocktail_id);
     }
 }

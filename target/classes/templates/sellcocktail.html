@@ -1,0 +1,8 @@
+<h1>How many do you want to sell?</h1>
+<form th:action="@{/cocktails/__${cocktail_id}__/sellcocktail}" th:object="${sellcocktail}" method="post">
+    <label>Amount</label>
+    <input type="text" th:field="${sellcocktail.amount}">
+    <button type="submit"> Sell </button>
+    <label th:text="${result}"></label>
+    <br>
+</form>

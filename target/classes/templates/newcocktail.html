@@ -22,7 +22,9 @@
         <label th:text="${result}"></label>
         <br>
         <button onclick="returnFields()" id="button" type="submit">Create cocktail</button>
-        <select th:field="*{drinks}" id="hidden" style="visibility: hidden">
+        <select th:field="*{drinks}" id="hidden1" style="visibility: hidden">
+        </select>
+        <select th:field="*{quantities}" id="hidden2" style="visibility: hidden">
         </select>
     </form>
 </body>
@@ -36,12 +38,14 @@
         for(var i = 1; i <= number; i++) {
             input += "<label>Drink " + i + "</label>" +
                      "<select id='drink" + i +"'>" +
-                     "<option value=\"\" hidden>Select number of drinks</option>\n";
+                     "<option value=\"\" hidden>Select drink</option>\n";
 
             for (var j = 0; j < drink_list.length; j++)
                 input += "    <option value='"+ drink_list[j] + "'>" + drink_list[j] + "</option>\n";
 
             input += "</select>" +
+                     "<label>Quantity</label>" +
+                     "<input id='quantity" + i + "' type=\"text\" placeholder='1'>" +
                      "<br>"
         }
         document.getElementById('drinks').innerHTML = input;
@@ -51,9 +55,12 @@
     function returnFields() {
         var number = document.getElementById('number_of_drinks').value;
         var drinks = "";
+        var quantities = "";
         for(var i = 1; i <= number; i++) {
             drinks += document.getElementById("drink" + i).value + " / / ";
+            quantities += document.getElementById("quantity" + i).value + " ";
         }
-        document.getElementById("hidden").innerHTML = "<option value='" + drinks + "'></option>";
+        document.getElementById("hidden1").innerHTML = "<option value='" + drinks + "'></option>";
+        document.getElementById("hidden2").innerHTML = "<option value='" + quantities + "'></option>";
     }
 </script>

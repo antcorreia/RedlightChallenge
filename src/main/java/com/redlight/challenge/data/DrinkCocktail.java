@@ -16,6 +16,8 @@ public class DrinkCocktail implements Serializable{
     @Id
     private int cocktail_id;
 
+    private int quantity;
+
     public DrinkCocktail() {
     }
 
@@ -38,5 +40,13 @@ public class DrinkCocktail implements Serializable{
 
     public void setCocktail_id(int cocktail_id) {
         this.cocktail_id = cocktail_id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

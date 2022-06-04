@@ -1,5 +1,5 @@
 <style>
-    #input {
+    #inputCocktail {
         background-image: url('/css/searchicon.png');
         background-position: 10px 12px;
         background-repeat: no-repeat;
@@ -11,40 +11,38 @@
         margin-bottom: 12px;
     }
 
-    #drink_list {
+    #cocktail_list {
         border-collapse: collapse;
         width: 100%;
         border: 1px solid #ddd;
         font-size: 18px;
     }
 
-    #drink_list th, #drink_list td {
+    #cocktail_list th, #cocktail_list td {
         text-align: left;
         padding: 12px;
     }
 
-    #drink_list tr {
+    #cocktail_list tr {
         border-bottom: 1px solid #ddd;
     }
 
-    #drink_list tr.header, #drink_list tr:hover {
+    #cocktail_list tr.header, #cocktail_list tr:hover {
         background-color: #f1f1f1;
     }
 </style>
 
 <body>
-    <h1>All drinks</h1>
-    <input type="text" id="input" onkeyup="search()" placeholder="Search for drinks...">
-    <table id="drink_list" class="table" border="1">
+    <h1>All cocktails</h1>
+    <input type="text" id="inputCocktail" onkeyup="search()" placeholder="Search for cocktails...">
+    <table id="cocktail_list" class="table" border="1">
         <tr class="header">
             <th onclick="sortTableString(0)" style="width:40%;">Name</th>
-            <th style="width:30%;">Image</th>
-            <th onclick="sortTableInt(2)" style="width:30%;">Quantity</th>
+            <th onclick="sortTableInt(1)" style="width:20%;">Number of Drinks</th>
         </tr>
-        <tr th:each="d: ${drinks}">
-            <td> <a th:href="@{/drinks/{id}(id=${d.drink_id})}"><label th:text="${d.name}"></label></a> </td>
-            <td> <img th:src="${d.image_url}" height="50" width="50"></td>
-            <td th:text="${d.quantity}">Quantity</td>
+        <tr th:each="c, iter: ${cocktails}">
+            <td> <a th:href="@{/cocktails/{id}(id=${c.cocktail_id})}"><label th:text="${c.name}"></label></a> </td>
+            <td th:text="${quantities[iter.index]}">Quantity</td>
         </tr>
     </table>
     <br>
@@ -54,9 +52,9 @@
 <script>
     function search() {
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("input");
+        input = document.getElementById("inputCocktail");
         filter = input.value.toUpperCase();
-        table = document.getElementById("drink_list");
+        table = document.getElementById("cocktail_list");
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
@@ -75,7 +73,7 @@
 
     function sortTableString(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("drink_list");
+        table = document.getElementById("cocktail_list");
         switching = true;
         dir = "asc";
 
@@ -119,7 +117,7 @@
 
     function sortTableInt(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("drink_list");
+        table = document.getElementById("cocktail_list");
         switching = true;
         dir = "asc";
 

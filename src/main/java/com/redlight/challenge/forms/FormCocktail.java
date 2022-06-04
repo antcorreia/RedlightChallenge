@@ -6,6 +6,7 @@ public class FormCocktail {
     private String name;
     private int number_of_drinks;
     private String drinks;
+    private String quantities;
 
     public String getName() {
         return name;
@@ -29,5 +30,13 @@ public class FormCocktail {
 
     public void setDrinks(String drinks) {
         this.drinks = drinks;
+    }
+
+    public String getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(String quantities) {
+        this.quantities = quantities;
     }
 }

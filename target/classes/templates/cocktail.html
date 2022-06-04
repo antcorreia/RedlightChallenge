@@ -1,0 +1,23 @@
+<h1 th:text="${cocktail.name}">name</h1>
+<table id="drinks" class="table" border="1">
+    <tr class="header">
+        <th  style="width:40%;">Drink</th>
+        <th  style="width:20%;">Quantity</th>
+    </tr>
+    <tr th:each="d, iter: ${drinks}">
+        <td> <a th:href="@{/drinks/{id}(id=${ids[iter.index]})}"><label th:text="${d}"></label></a> </td>
+        <td th:text="${quantities[iter.index]}">Quantity</td>
+    </tr>
+</table>
+<br>
+<label th:text="${result}"></label>
+<br>
+<a th:href="@{/cocktails/__${cocktail.cocktail_id}__/sell}">
+    <button> Sell cocktail </button>
+</a>
+<a th:href="@{/cocktails/__${cocktail.cocktail_id}__/edit}">
+    <button> Edit cocktail </button>
+</a>
+<a th:href="@{/cocktails/__${cocktail.cocktail_id}__/delete}">
+    <button> Delete cocktail </button>
+</a>
